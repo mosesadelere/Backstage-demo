@@ -14,8 +14,9 @@ jobs:
 
       -
         name: Set Short SHA
+        shell: bash
         run: |
-          echo "SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_ENV
+          echo "SHORT_SHA=${GITHUB_SHA::6}" >> $GITHUB_ENV
 
       -
         name: Login to Docker Hub
