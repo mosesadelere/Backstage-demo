@@ -47,7 +47,7 @@ jobs:
         shell: bash
         run: |
           echo ${{ needs.ci.outputs.commit_id }}
-          python3 -m venv .
+          apt install python3.12-venv
           pip install yq
           yq -Yi '.image.tag = "${{ needs.ci.outputs.commit_id }}"' charts/python-app/values.yaml
 
