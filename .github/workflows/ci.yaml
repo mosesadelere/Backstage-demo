@@ -50,8 +50,7 @@ jobs:
           sudo apt update -y
           sudo apt install -y software-properties-common
           sudo add-apt-repository ppa:deadsnakes/ppa
-          sudo apt install python3.12
-          python3 -m venv .
+          sudo apt install python3.12-venv
           pip install yq
           yq -Yi '.image.tag = "${{ needs.ci.outputs.commit_id }}"' charts/python-app/values.yaml
 
