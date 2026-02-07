@@ -10,6 +10,8 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    outputs:
+      commit_id: ${{ env.SHORT_SHA }}
     steps:
 
       -
@@ -24,7 +26,7 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
- 
+
       -
         name: Build and push
         uses: docker/build-push-action@v6
@@ -38,7 +40,24 @@ jobs:
     steps:
 
       -
-        name: Install Argocd 
+        uses: actions/checkout@v3
+
+      -
+        name: Modify values file
+        shell: bash
+        run: |
+          echo ${{ needs.ci.outputs.commit_id }}
+          pip install yq
+          yq -Yi '.image.tag = "${{ needs.ci.outputs.commit_id }}"' charts/python-app/values.yaml
+
+      -
+        name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'update values.yaml with commit ${{ needs.ci.outputs.commit_id }}'
+
+      -
+        name: Install Argocd
         shell: bash
         run: |
           curl -ksSL -o argocd https://argocd-server.argocd/download/argocd-linux-amd64
