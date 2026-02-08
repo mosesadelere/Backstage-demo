@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: mosesade/python-app
   pullPolicy: IfNotPresent
-  tag: 281f6c
+  tag: '901583'
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
