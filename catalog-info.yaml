@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: python-app
+  description: This give basic information about the python application. It can be used to generate documentation and other useful information about the component.
+  # Example for optional annotations
+  annotations:
+     github.com/project-slug: mosesadelere/Backstage-demo
+  #   backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  owner: developers
+  lifecycle: experimental
